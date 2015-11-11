@@ -246,6 +246,21 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
         return self.pickerData[row]
     }
     
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        var pickerLabel = UILabel()
+        let text = self.pickerData[row]
+        if (pickerLabel.isEqual(nil) || !pickerLabel.isMemberOfClass(UILabel)){
+            let frame = CGRectMake(0, 0, 270, 32)
+            pickerLabel = UILabel(frame: frame)
+        }
+        pickerLabel.textAlignment = .Center
+        pickerLabel.backgroundColor = UIColor.clearColor()
+        pickerLabel.font = UIFont(name: "Avenir Next Bold", size: 18)
+        pickerLabel.textColor = UIColor.blackColor()
+        pickerLabel.text = text
+        return pickerLabel
+    }
+    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }

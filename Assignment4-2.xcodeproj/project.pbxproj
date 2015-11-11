@@ -294,6 +294,7 @@
 				BCA55B8D1BF2D36C001F103D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
