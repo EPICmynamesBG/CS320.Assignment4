@@ -47,11 +47,13 @@ class NetworkRequestor {
     
     func updateStudent(studentId: Int, withData params: String){
         let baseURL = "http://csmadison.dhcp.bsu.edu/~vjtanksale/cs320/updatestudents.php"
+        var cleanedParams = "StudentId=\(studentId)&\(params)"
+        cleanedParams = cleanedParams.stringByReplacingOccurrencesOfString(" ", withString: "%20")
         let url = NSURL(string: baseURL)
         let session = NSURLSession.sharedSession()
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
-        request.HTTPBody = params.dataUsingEncoding(NSUTF8StringEncoding)
+        request.HTTPBody = cleanedParams.dataUsingEncoding(NSUTF8StringEncoding)
         let datatask = session.dataTaskWithRequest(request) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             if let HTTPResponse = response as? NSHTTPURLResponse {
                 let statusCode = HTTPResponse.statusCode
@@ -70,7 +72,52 @@ class NetworkRequestor {
     
     func deleteStudent(studentId: Int){
         print("Delete the student!")
-        self.delegate?.rowDeletionSuccessful!(false)
+        let baseURL = "http://csmadison.dhcp.bsu.edu/~vjtanksale/cs320/deletestudents.php"
+        let param = "StudentId=\(studentId)"
+        let url = NSURL(string: baseURL)
+        let session = NSURLSession.sharedSession()
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = param.dataUsingEncoding(NSUTF8StringEncoding)
+        let datatask = session.dataTaskWithRequest(request) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            if let HTTPResponse = response as? NSHTTPURLResponse {
+                let statusCode = HTTPResponse.statusCode
+                if (statusCode == 200 && error == nil){
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.delegate?.rowDeletionSuccessful!(true)
+                    })
+                }
+            }
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                self.delegate?.rowDeletionSuccessful!(false)
+            })
+        }
+        datatask.resume()
+    }
+    
+    func createStudent(params: String){
+        let cleanedParams = params.stringByReplacingOccurrencesOfString(" ", withString: "%20")
+        print(cleanedParams)
+        let baseURL = "http://csmadison.dhcp.bsu.edu/~vjtanksale/cs320/insertstudents.php"
+        let url = NSURL(string: baseURL)
+        let session = NSURLSession.sharedSession()
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = cleanedParams.dataUsingEncoding(NSUTF8StringEncoding)
+        let datatask = session.dataTaskWithRequest(request) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            if let HTTPResponse = response as? NSHTTPURLResponse {
+                let statusCode = HTTPResponse.statusCode
+                if (statusCode == 200 && error == nil){
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.delegate?.rowInsertSuccessful!(true)
+                    })
+                }
+            }
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                self.delegate?.rowInsertSuccessful!(false)
+            })
+        }
+        datatask.resume()
     }
     
     func parseJSON(data: NSData?) -> NSArray{
