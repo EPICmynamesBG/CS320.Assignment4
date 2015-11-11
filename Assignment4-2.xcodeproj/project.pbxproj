@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		BCA55B7D1BF2D36C001F103D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA55B7C1BF2D36C001F103D /* AppDelegate.swift */; };
-		BCA55B7F1BF2D36C001F103D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA55B7E1BF2D36C001F103D /* ViewController.swift */; };
+		BCA55B7F1BF2D36C001F103D /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA55B7E1BF2D36C001F103D /* MainTableViewController.swift */; };
 		BCA55B821BF2D36C001F103D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCA55B801BF2D36C001F103D /* Main.storyboard */; };
 		BCA55B841BF2D36C001F103D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCA55B831BF2D36C001F103D /* Assets.xcassets */; };
 		BCA55B871BF2D36C001F103D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCA55B851BF2D36C001F103D /* LaunchScreen.storyboard */; };
+		BCA55B8F1BF2D4D5001F103D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA55B8E1BF2D4D5001F103D /* DetailViewController.swift */; };
+		BCA55B911BF2D648001F103D /* NetworkRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA55B901BF2D648001F103D /* NetworkRequestor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BCA55B791BF2D36C001F103D /* Assignment4-2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Assignment4-2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCA55B7C1BF2D36C001F103D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BCA55B7E1BF2D36C001F103D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BCA55B7E1BF2D36C001F103D /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		BCA55B811BF2D36C001F103D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BCA55B831BF2D36C001F103D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCA55B861BF2D36C001F103D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCA55B881BF2D36C001F103D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCA55B8E1BF2D4D5001F103D /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		BCA55B901BF2D648001F103D /* NetworkRequestor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				BCA55B7C1BF2D36C001F103D /* AppDelegate.swift */,
-				BCA55B7E1BF2D36C001F103D /* ViewController.swift */,
+				BCA55B7E1BF2D36C001F103D /* MainTableViewController.swift */,
+				BCA55B8E1BF2D4D5001F103D /* DetailViewController.swift */,
+				BCA55B901BF2D648001F103D /* NetworkRequestor.swift */,
 				BCA55B801BF2D36C001F103D /* Main.storyboard */,
 				BCA55B831BF2D36C001F103D /* Assets.xcassets */,
 				BCA55B851BF2D36C001F103D /* LaunchScreen.storyboard */,
@@ -135,7 +141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCA55B7F1BF2D36C001F103D /* ViewController.swift in Sources */,
+				BCA55B8F1BF2D4D5001F103D /* DetailViewController.swift in Sources */,
+				BCA55B911BF2D648001F103D /* NetworkRequestor.swift in Sources */,
+				BCA55B7F1BF2D36C001F103D /* MainTableViewController.swift in Sources */,
 				BCA55B7D1BF2D36C001F103D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
