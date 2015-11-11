@@ -144,6 +144,15 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
         return true
     }
     
+    private func gpaIsValid() -> Bool{
+        let gpaString = self.gpaTextfield.text! as String
+        let gpa: Double = Double(gpaString)!
+        if (gpa < 0.0 || gpa > 4.0){
+            return false
+        }
+        return true
+    }
+    
     // ------ Button Taps ----------
     @IBAction func yearTextButton(sender: UIButton) {
         self.yearPickerView.hidden = false
@@ -158,7 +167,7 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
         if (self.createStudentMode == true){
             //create new student
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-            if (self.allFieldsAreFilled() == true){
+            if (self.allFieldsAreFilled() == true && self.gpaIsValid() == true){
                 let params: String = "FirstName=\(String(UTF8String: self.firstName.text!)!)&LastName=\(String(UTF8String: self.lastName.text!)!)&Major=\(String(UTF8String: self.majorTextfield.text!)!)&Year=\(String(UTF8String: self.yearTextfield.text!)!)&GPA=\(String(UTF8String: self.gpaTextfield.text!)!)"
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = true
                 self.requestor.createStudent(params)
@@ -180,7 +189,7 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
             }
             let confirm = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Destructive) { (action:UIAlertAction) -> Void in
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-                if (self.dataIsDifferent() == true && self.allFieldsAreFilled() == true){
+                if (self.dataIsDifferent() == true && self.allFieldsAreFilled() == true && self.gpaIsValid() == true){
                     let params: String = "FirstName=\(String(UTF8String: self.firstName.text!)!)&LastName=\(String(UTF8String: self.lastName.text!)!)&Major=\(String(UTF8String: self.majorTextfield.text!)!)&Year=\(String(UTF8String: self.yearTextfield.text!)!)&GPA=\(String(UTF8String: self.gpaTextfield.text!)!)"
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
                     self.requestor.updateStudent(studentId, withData: params)
