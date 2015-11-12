@@ -9,29 +9,10 @@
 import WatchKit
 import WatchConnectivity
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
+class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
-        let session = WCSession.defaultSession()
-        session.delegate = self
-        session.activateSession()
-    }
-    
-    func session(session: WCSession, didReceiveMessageData messageData: NSData, replyHandler: (NSData) -> Void) {
-        if (messageData.isMemberOfClass(NSData)){
-            do {
-                let array: NSArray = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(messageData) as! NSArray
-                print(array)
-                let vc = MainInterfaceController()
-                vc.data = array
-
-            } catch {
-                print("Unarchiving error")
-            }
-            
-        } else {
-            print("Not NSData: Error")
-        }
+        print("Done launching")
     }
 
     func applicationDidBecomeActive() {

@@ -38,12 +38,12 @@ class NetworkRequestor {
                     let array = self.parseJSON(data)
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         self.delegate?.retrievedAllStudents!(array)
+                        self.watch?.sendWatchData(data!)
                     })
                 }
             }
         }
         if (self.connectedToNetwork()){
-            
             datatask.resume()
         }
     }

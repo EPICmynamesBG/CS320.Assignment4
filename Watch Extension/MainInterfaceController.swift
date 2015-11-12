@@ -8,26 +8,55 @@
 
 import WatchKit
 import Foundation
+import WatchConnectivity
 
 
-class MainInterfaceController: WKInterfaceController {
+class MainInterfaceController: WKInterfaceController, WCSessionDelegate {
 
     @IBOutlet var table: WKInterfaceTable!
     var data: NSArray!
+    var session: WCSession
+    
+    override init(){
+        self.session = WCSession.defaultSession()
+        super.init()
+        self.session.delegate = self
+        session.activateSession()
+    }
     
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        if (!data.isEqual(nil)){
+        
+        
+        data = NSArray()
+        if (!data.isEqual(nil) || data.count
+             > 0){
             self.updateTable()
         } else {
-            print("Data is nil")
+            print("Data is empty")
         }
         // Configure interface objects here.
     }
     
+    func session(session: WCSession, didReceiveMessageData messageData: NSData, replyHandler: (NSData) -> Void) {
+        self.data = self.parseJSON(messageData)
+        self.updateTable()
+    }
+    
+    func parseJSON(data: NSData?) -> NSArray{
+        var parsedData:NSArray!
+        do {
+            parsedData = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSArray
+        } catch {
+            print("Error parsing JSON")
+        }
+        return parsedData
+    }
+    
     func updateTable(){
         table.setNumberOfRows(self.data.count, withRowType: "WatchListRowController")
-        for (var i = 0; i < self.data.count; i++){
+        print(table.numberOfRows)
+        for (var i = 0; i < table.numberOfRows; i++){
             let dict = self.data[i] as! NSDictionary
             let cell = table.rowControllerAtIndex(i) as! WatchListRowController
             let fName = dict["FirstName"] as! String
