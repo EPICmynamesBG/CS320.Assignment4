@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="9019"/>
+    </dependencies>
+    <scenes>
+        <!--Main Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Watch_Extension">
+                    <items>
+                        <table alignment="left" id="lmJ-5I-BHZ">
+                            <items>
+                                <tableRow identifier="WatchKitRowController" id="Ius-60-Hi3" customClass="WatchListRowController" customModule="Assignment4_2">
+                                    <group key="rootItem" width="1" alignment="left" id="20N-DX-Swd">
+                                        <items>
+                                            <label alignment="center" verticalAlignment="center" text="Student" id="RDi-eB-UGg"/>
+                                        </items>
+                                        <connections>
+                                            <segue destination="59D-PY-N2w" kind="push" identifier="showStudentSegue" id="xYa-UC-CdE"/>
+                                        </connections>
+                                    </group>
+                                    <connections>
+                                        <outlet property="studentLabel" destination="RDi-eB-UGg" id="XUG-MB-I5a"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="table" destination="lmJ-5I-BHZ" id="f41-fl-ALj"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="235" y="341"/>
+        </scene>
+        <!--Student Interface Controller-->
+        <scene sceneID="g3h-Op-f64">
+            <objects>
+                <controller id="59D-PY-N2w" customClass="StudentInterfaceController" customModule="Watch_Extension">
+                    <items>
+                        <label alignment="center" text="FirstName" id="f4s-vo-yht"/>
+                        <label alignment="center" text="LastName" textAlignment="left" id="v9j-53-seS"/>
+                        <label alignment="center" text="Student ID: 0" id="FWD-Zv-oh8"/>
+                        <label alignment="center" text="Major" id="qyI-Zn-vNC"/>
+                        <label alignment="center" text="Year" id="CV6-rB-VKt"/>
+                        <separator alignment="left" id="laQ-Ro-qWg"/>
+                        <button width="1" alignment="left" title="Delete Student" id="bRq-bP-PwT">
+                            <fontDescription key="font" type="system" pointSize="14"/>
+                            <connections>
+                                <segue destination="m2j-G5-4po" kind="push" id="q9O-lT-dan"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="firstNameLabel" destination="f4s-vo-yht" id="6DC-mJ-Uae"/>
+                        <outlet property="lastNameLabel" destination="v9j-53-seS" id="M2j-Ff-02P"/>
+                        <outlet property="majorLabel" destination="qyI-Zn-vNC" id="d2F-bq-77O"/>
+                        <outlet property="studentIdLabel" destination="FWD-Zv-oh8" id="drh-ki-miK"/>
+                        <outlet property="yearLabel" destination="CV6-rB-VKt" id="Q1m-5H-0jw"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="440" y="348"/>
+        </scene>
+        <!--Confirmation Interface Controller-->
+        <scene sceneID="USh-EB-v6j">
+            <objects>
+                <controller id="m2j-G5-4po" customClass="ConfirmationInterfaceController" customModule="Watch_Extension">
+                    <items>
+                        <label alignment="center" text="Confirm: Delete the student?" numberOfLines="2" id="OVy-ZC-chi"/>
+                        <button width="1" alignment="left" title="Cancel" id="hzf-N7-Zb1">
+                            <connections>
+                                <action selector="cancelTap" destination="m2j-G5-4po" id="rtJ-ba-juU"/>
+                            </connections>
+                        </button>
+                        <separator alignment="center" id="3bg-TA-HKQ">
+                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </separator>
+                        <button width="1" alignment="left" title="Delete" id="EEa-KZ-S03">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="deleteTap" destination="m2j-G5-4po" id="drS-8a-a8Q"/>
+                            </connections>
+                        </button>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="625" y="341"/>
+        </scene>
+    </scenes>
+</document>

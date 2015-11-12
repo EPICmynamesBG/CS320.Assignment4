@@ -8,6 +8,7 @@
 
 import Foundation
 import SystemConfiguration
+import WatchConnectivity
 
 @objc protocol NetworkRequestorDelegate {
     optional func retrievedAllStudents(array: NSArray)
@@ -20,9 +21,10 @@ import SystemConfiguration
 class NetworkRequestor {
     
     var delegate:NetworkRequestorDelegate?
+    var watch: WatchNotifier?
     
     init(){
-        
+        self.watch = WatchNotifier()
     }
     
     func getAllStudents(){
@@ -41,6 +43,7 @@ class NetworkRequestor {
             }
         }
         if (self.connectedToNetwork()){
+            
             datatask.resume()
         }
     }
