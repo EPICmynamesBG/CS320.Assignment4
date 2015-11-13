@@ -9,18 +9,10 @@
 import WatchKit
 import WatchConnectivity
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
-
+class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
-        let session = WCSession.defaultSession()
-        session.delegate = self
-        session.activateSession()
-    }
-    
-    func session(session: WCSession, didReceiveFile file: WCSessionFile) {
-        print("Recieving data")
-        NSNotificationCenter.defaultCenter().postNotificationName("DataDidUpdate", object: nil)
+        
     }
 
     func applicationDidBecomeActive() {

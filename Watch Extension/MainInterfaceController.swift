@@ -7,6 +7,7 @@
 //
 
 import WatchKit
+import WatchConnectivity
 import Foundation
 
 
@@ -27,8 +28,18 @@ class MainInterfaceController: WKInterfaceController, NetworkRequestorDelegate {
         self.setTitle("Students")
         data = NSArray()
         self.requestor.delegate = self
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTable", name: "DataDidUpdate", object: nil)
         // Configure interface objects here.
+    }
+
+    override func willActivate() {
+        // This method is called when watch view controller is about to be visible to user
+        super.willActivate()
+        self.makingRequest = true
+        self.requestor.getAllStudents()
+        if (makingRequest){
+            self.loadingLabel.setHidden(false)
+        }
+        
     }
     
     func updateTable(){
@@ -43,17 +54,7 @@ class MainInterfaceController: WKInterfaceController, NetworkRequestorDelegate {
             
         }
     }
-
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-        self.makingRequest = true
-        self.requestor.getAllStudents()
-        if (makingRequest){
-            self.loadingLabel.setHidden(false)
-        }
-        
-    }
+    
     @IBAction func reloadTap() {
         self.makingRequest = true
         table.setNumberOfRows(0, withRowType: "WatchListRowController")
@@ -74,21 +75,7 @@ class MainInterfaceController: WKInterfaceController, NetworkRequestorDelegate {
         self.requestor.getAllStudents()
     }
     
-    override func contextForSegueWithIdentifier(segueIdentifier: String, inTable table: WKInterfaceTable, rowIndex: Int) -> AnyObject? {
-        if (segueIdentifier == "showStudentSegue"){
-            let dict = self.data[rowIndex] as! NSDictionary
-            self.pushControllerWithName("StudentInterfaceController", context: dict)
-            return dict
-        }
-        return nil
-    }
-    
-    func noNetworkConnection() {
-        print("No connection")
-        self.makingRequest = false
-        self.noNetworkLabel.setHidden(false)
-        self.retryButton.setHidden(false)
-    }
+    //-------- Connection Delegates ---------
     
     func retrievedAllStudents(array: NSArray) {
         self.data = array
@@ -100,5 +87,22 @@ class MainInterfaceController: WKInterfaceController, NetworkRequestorDelegate {
             self.retryButton.setHidden(true)
         }
     }
+    
+    func noPhoneConnected() {
+        print("No connection")
+        self.makingRequest = false
+        self.noNetworkLabel.setHidden(false)
+        self.retryButton.setHidden(false)
+    }
 
+    // ---------- Prepare for Segue ---------
+    
+    override func contextForSegueWithIdentifier(segueIdentifier: String, inTable table: WKInterfaceTable, rowIndex: Int) -> AnyObject? {
+        if (segueIdentifier == "showStudentSegue"){
+            let dict = self.data[rowIndex] as! NSDictionary
+            self.pushControllerWithName("StudentInterfaceController", context: dict)
+            return dict
+        }
+        return nil
+    }
 }

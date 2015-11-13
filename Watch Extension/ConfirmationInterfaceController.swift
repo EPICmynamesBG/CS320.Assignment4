@@ -34,15 +34,7 @@ class ConfirmationInterfaceController: WKInterfaceController, NetworkRequestorDe
         // Configure interface objects here.
     }
     
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-    }
-    
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
-    }
+    // --------- Button Taps -----------
     
     @IBAction func cancelTap() {
         self.popController()
@@ -64,7 +56,9 @@ class ConfirmationInterfaceController: WKInterfaceController, NetworkRequestorDe
         }
     }
     
-    func noNetworkConnection() {
+    // --------- Connection Delegates ---------
+    
+    func noPhoneConnected() {
         self.deleteSuccess = false
         self.deletedLabel.setText("No Network Connection")
         self.deletedLabel.setTextColor(UIColor.redColor())

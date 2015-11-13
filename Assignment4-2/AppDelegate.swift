@@ -13,6 +13,8 @@ import WatchConnectivity
 class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
 
     var window: UIWindow?
+    let backgroundRefreshTime: Int = 60 * 60 //60 seconds * 60 minutes = 1 hr
+    let requestor = NetworkRequestor()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if (WCSession.isSupported()){
@@ -20,11 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             session.delegate = self
             session.activateSession()
         }
+        UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(NSTimeInterval(backgroundRefreshTime))
         return true
-    }
-    
-    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
-        //code
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -49,21 +48,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    /*
-    func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: ([NSObject : AnyObject]?) -> Void) {
-        if (userInfo != nil){
-            if let request = userInfo!["request"] as? String {
-                self.requestor = NetworkRequestor()
-                if (request == "getStudents"){
-                    self.requestor.getAllStudents()
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        print("Fetching...")
+        let fetchedArray = self.requestor.getAllStudentsInFetch()
+        let savedArray = SaveDataManager.getJSON()
+        print(fetchedArray.debugDescription)
+        print(savedArray.debugDescription)
+        let notification = Notification()
+        notification.fireNotification()
+        if (fetchedArray != nil){
+            if (savedArray != nil){
+                if (fetchedArray! == savedArray!){
+                    print("Success")
+                    let notification = Notification()
+                    notification.fireNotification()
+                    completionHandler(.NewData)
+                } else {
+                    print("Data is same")
+                    completionHandler(.NoData)
                 }
+            } else {
+                SaveDataManager.saveJSON(fetchedArray!)
+                print("saved data was nil")
+                completionHandler(.NoData)
             }
-            
         } else {
-            print("User info is nil")
+            print("Failed")
+            completionHandler(.Failed)
         }
     }
-*/
 
 }
 

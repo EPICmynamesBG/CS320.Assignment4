@@ -10,21 +10,26 @@ import Foundation
 #if os(iOS)
 import SystemConfiguration
 #endif
+import WatchConnectivity
 
 @objc protocol NetworkRequestorDelegate {
     optional func retrievedAllStudents(array: NSArray)
     optional func rowUpdateSuccessful(boolean: Bool)
     optional func rowDeletionSuccessful(boolean: Bool)
     optional func rowInsertSuccessful(boolean: Bool)
+    #if os(iOS)
     func noNetworkConnection()
+    #else
+    func noPhoneConnected()
+    #endif
 }
 
-class NetworkRequestor {
+class NetworkRequestor: NSObject, WCSessionDelegate {
     
     var delegate:NetworkRequestorDelegate?
-    var watchManager = WatchDataManager()
+    var session: WCSession?
     
-    init(){
+    override init(){
         
     }
     
@@ -43,14 +48,26 @@ class NetworkRequestor {
                 }
             }
         }
-        
         #if os(iOS)
-        if (self.connectedToNetwork()){
-            datatask.resume()
-        }
+            if (self.connectedToNetwork()){
+                datatask.resume()
+            }
         #else
-        datatask.resume()
+            if (self.connectedToPhone()){
+                datatask.resume()
+            }
         #endif
+    }
+    
+    func getAllStudentsInFetch() -> NSArray?{
+        let baseURL = "http://csmadison.dhcp.bsu.edu/~vjtanksale/cs320/selectstudents.php"
+        let url = NSURL(string: baseURL)
+        do {
+            let data = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+            return self.parseJSON(data)
+        } catch {
+            return nil
+        }
     }
     
     func updateStudent(studentId: Int, withData params: String){
@@ -75,9 +92,15 @@ class NetworkRequestor {
                 self.delegate?.rowUpdateSuccessful!(false)
             })
         }
-        if (self.connectedToNetwork()){
-            datatask.resume()
-        }
+        #if os(iOS)
+            if (self.connectedToNetwork()){
+                datatask.resume()
+            }
+        #else
+            if (self.connectedToPhone()){
+                datatask.resume()
+            }
+        #endif
     }
     
     func deleteStudent(studentId: Int){
@@ -103,11 +126,13 @@ class NetworkRequestor {
             }
         }
         #if os(iOS)
-        if (self.connectedToNetwork()){
-            datatask.resume()
-        }
+            if (self.connectedToNetwork()){
+                datatask.resume()
+            }
         #else
-        datatask.resume()
+            if (self.connectedToPhone()){
+                datatask.resume()
+            }
         #endif
     }
     
@@ -132,9 +157,15 @@ class NetworkRequestor {
                 self.delegate?.rowInsertSuccessful!(false)
             })
         }
-        if (self.connectedToNetwork()){
-            datatask.resume()
-        }
+        #if os(iOS)
+            if (self.connectedToNetwork()){
+                datatask.resume()
+            }
+        #else
+            if (self.connectedToPhone()){
+                datatask.resume()
+            }
+        #endif
     }
     
     func parseJSON(data: NSData?) -> NSArray{
@@ -144,8 +175,6 @@ class NetworkRequestor {
         } catch {
             print("Error parsing JSON")
         }
-        watchManager.saveJSON(parsedData)
-
         return parsedData
     }
     
@@ -171,23 +200,26 @@ class NetworkRequestor {
         if (status == false){
             self.delegate?.noNetworkConnection()
         }
-        
         return status
     }
-    
     #else
-    
-    private func connectedToNetwork() -> Bool{
-        let url = NSURL(string: "https://www.google.com")
-        do{
-            _ = try NSData(contentsOfURL: url!, options: .DataReadingUncached)
-        } catch {
-            self.delegate?.noNetworkConnection()
-            return false
+    private func connectedToPhone() -> Bool{
+        if WCSession.isSupported() {
+            let session = WCSession.defaultSession()
+            session.delegate = self
+            session.activateSession()
+            print(session.reachable)
+            if session.reachable {
+                return true
+            } else {
+                self.delegate?.noPhoneConnected()
+                return false
+                
+            }
+        } else {
+            self.delegate?.noPhoneConnected()
         }
-        return true
+        return false
     }
-    
     #endif
-    
 }

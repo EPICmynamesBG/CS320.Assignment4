@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BC2C23051BF4EB8E002809F1 /* NetworkRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA55B901BF2D648001F103D /* NetworkRequestor.swift */; };
 		BC2FF61D1BF3E6DF00C8B2D0 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2FF61B1BF3E6DF00C8B2D0 /* Interface.storyboard */; };
 		BC2FF61F1BF3E6DF00C8B2D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC2FF61E1BF3E6DF00C8B2D0 /* Assets.xcassets */; };
 		BC2FF6261BF3E6DF00C8B2D0 /* Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BC2FF6251BF3E6DF00C8B2D0 /* Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -25,9 +24,10 @@
 		BCA55B8F1BF2D4D5001F103D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA55B8E1BF2D4D5001F103D /* DetailViewController.swift */; };
 		BCA55B911BF2D648001F103D /* NetworkRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA55B901BF2D648001F103D /* NetworkRequestor.swift */; };
 		BCAC5A751BF5341E0084ED0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCAC5A741BF5341E0084ED0A /* Assets.xcassets */; };
-		BCAC5A781BF5380A0084ED0A /* WatchNetworkRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAC5A771BF5380A0084ED0A /* WatchNetworkRequestor.swift */; };
-		BCAC5A7B1BF53F0C0084ED0A /* WatchDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAC5A7A1BF53F0C0084ED0A /* WatchDataManager.swift */; };
-		BCAC5A7C1BF53F0C0084ED0A /* WatchDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAC5A7A1BF53F0C0084ED0A /* WatchDataManager.swift */; };
+		BCDE9E791BF58F42000C6541 /* NetworkRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA55B901BF2D648001F103D /* NetworkRequestor.swift */; };
+		BCDE9E7B1BF5A01D000C6541 /* SaveDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDE9E7A1BF5A01D000C6541 /* SaveDataManager.swift */; };
+		BCDE9E7D1BF5A5D6000C6541 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDE9E7C1BF5A5D6000C6541 /* Notification.swift */; };
+		BCDE9E7E1BF5A5D6000C6541 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDE9E7C1BF5A5D6000C6541 /* Notification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,8 +94,8 @@
 		BCA55B8E1BF2D4D5001F103D /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		BCA55B901BF2D648001F103D /* NetworkRequestor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestor.swift; sourceTree = "<group>"; };
 		BCAC5A741BF5341E0084ED0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BCAC5A771BF5380A0084ED0A /* WatchNetworkRequestor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchNetworkRequestor.swift; sourceTree = "<group>"; };
-		BCAC5A7A1BF53F0C0084ED0A /* WatchDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchDataManager.swift; sourceTree = "<group>"; };
+		BCDE9E7A1BF5A01D000C6541 /* SaveDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveDataManager.swift; sourceTree = "<group>"; };
+		BCDE9E7C1BF5A5D6000C6541 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +132,6 @@
 			children = (
 				BC2FF62E1BF3E6DF00C8B2D0 /* ExtensionDelegate.swift */,
 				BCAC5A761BF537EB0084ED0A /* Interfaces */,
-				BCAC5A791BF538140084ED0A /* Networking */,
 				BC2FF6381BF3E6DF00C8B2D0 /* Info.plist */,
 				BCAC5A741BF5341E0084ED0A /* Assets.xcassets */,
 			);
@@ -148,13 +147,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		BC8E59C21BF50714003AA94A /* Networking */ = {
+		BC8E59C21BF50714003AA94A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BCDE9E7A1BF5A01D000C6541 /* SaveDataManager.swift */,
+				BCDE9E7C1BF5A5D6000C6541 /* Notification.swift */,
 				BCA55B901BF2D648001F103D /* NetworkRequestor.swift */,
-				BCAC5A7A1BF53F0C0084ED0A /* WatchDataManager.swift */,
 			);
-			name = Networking;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		BCA55B701BF2D36C001F103D = {
@@ -182,7 +182,7 @@
 			children = (
 				BCA55B7C1BF2D36C001F103D /* AppDelegate.swift */,
 				BC8E59C01BF50702003AA94A /* Views */,
-				BC8E59C21BF50714003AA94A /* Networking */,
+				BC8E59C21BF50714003AA94A /* Model */,
 				BCA55B801BF2D36C001F103D /* Main.storyboard */,
 				BCA55B831BF2D36C001F103D /* Assets.xcassets */,
 				BCA55B851BF2D36C001F103D /* LaunchScreen.storyboard */,
@@ -199,14 +199,6 @@
 				BC2FF6481BF3EA9A00C8B2D0 /* ConfirmationInterfaceController.swift */,
 			);
 			name = Interfaces;
-			sourceTree = "<group>";
-		};
-		BCAC5A791BF538140084ED0A /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				BCAC5A771BF5380A0084ED0A /* WatchNetworkRequestor.swift */,
-			);
-			name = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,12 +269,20 @@
 				TargetAttributes = {
 					BC2FF6181BF3E6DF00C8B2D0 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = 2246FUGJ54;
 					};
 					BC2FF6241BF3E6DF00C8B2D0 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = 2246FUGJ54;
 					};
 					BCA55B781BF2D36C001F103D = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = 2246FUGJ54;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -341,12 +341,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCAC5A781BF5380A0084ED0A /* WatchNetworkRequestor.swift in Sources */,
+				BCDE9E791BF58F42000C6541 /* NetworkRequestor.swift in Sources */,
 				BC2FF62F1BF3E6DF00C8B2D0 /* ExtensionDelegate.swift in Sources */,
-				BC2C23051BF4EB8E002809F1 /* NetworkRequestor.swift in Sources */,
 				BC2FF62D1BF3E6DF00C8B2D0 /* MainInterfaceController.swift in Sources */,
+				BCDE9E7E1BF5A5D6000C6541 /* Notification.swift in Sources */,
 				BC2FF6491BF3EA9A00C8B2D0 /* ConfirmationInterfaceController.swift in Sources */,
-				BCAC5A7C1BF53F0C0084ED0A /* WatchDataManager.swift in Sources */,
 				BC2FF6471BF3E9FE00C8B2D0 /* StudentInterfaceController.swift in Sources */,
 				BC2FF64C1BF3F5CF00C8B2D0 /* WatchListRowController.swift in Sources */,
 			);
@@ -356,8 +355,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCAC5A7B1BF53F0C0084ED0A /* WatchDataManager.swift in Sources */,
+				BCDE9E7B1BF5A01D000C6541 /* SaveDataManager.swift in Sources */,
 				BCA55B8F1BF2D4D5001F103D /* DetailViewController.swift in Sources */,
+				BCDE9E7D1BF5A5D6000C6541 /* Notification.swift in Sources */,
 				BCA55B911BF2D648001F103D /* NetworkRequestor.swift in Sources */,
 				BCA55B7F1BF2D36C001F103D /* MainTableViewController.swift in Sources */,
 				BCA55B7D1BF2D36C001F103D /* AppDelegate.swift in Sources */,
@@ -411,6 +411,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = Watch_Extension;
 				INFOPLIST_FILE = Watch/Info.plist;
@@ -427,6 +428,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = Watch_Extension;
 				INFOPLIST_FILE = Watch/Info.plist;
@@ -444,6 +446,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "CS320.Assignment4-2.watchkitapp.watchkitextension";
@@ -462,6 +465,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "CS320.Assignment4-2.watchkitapp.watchkitextension";
