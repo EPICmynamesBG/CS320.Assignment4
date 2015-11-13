@@ -23,6 +23,7 @@ class StudentInterfaceController: WKInterfaceController {
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
+        self.setTitle("Students")
         let dict = context as! NSDictionary
         self.data = dict
         self.firstNameLabel.setText((dict["FirstName"] as! String))

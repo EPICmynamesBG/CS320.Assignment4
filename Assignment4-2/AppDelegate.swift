@@ -13,8 +13,7 @@ import WatchConnectivity
 class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if (WCSession.isSupported()){
             let session = WCSession.defaultSession()
@@ -22,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             session.activateSession()
         }
         return true
+    }
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+        //code
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -45,7 +48,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    /*
+    func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: ([NSObject : AnyObject]?) -> Void) {
+        if (userInfo != nil){
+            if let request = userInfo!["request"] as? String {
+                self.requestor = NetworkRequestor()
+                if (request == "getStudents"){
+                    self.requestor.getAllStudents()
+                }
+            }
+            
+        } else {
+            print("User info is nil")
+        }
+    }
+*/
 
 }
 

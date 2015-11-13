@@ -7,8 +7,9 @@
 //
 
 import Foundation
+#if os(iOS)
 import SystemConfiguration
-import WatchConnectivity
+#endif
 
 @objc protocol NetworkRequestorDelegate {
     optional func retrievedAllStudents(array: NSArray)
@@ -21,10 +22,10 @@ import WatchConnectivity
 class NetworkRequestor {
     
     var delegate:NetworkRequestorDelegate?
-    var watch: WatchNotifier?
+    var watchManager = WatchDataManager()
     
     init(){
-        self.watch = WatchNotifier()
+        
     }
     
     func getAllStudents(){
@@ -38,14 +39,18 @@ class NetworkRequestor {
                     let array = self.parseJSON(data)
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         self.delegate?.retrievedAllStudents!(array)
-                        self.watch?.sendWatchData(data!)
                     })
                 }
             }
         }
+        
+        #if os(iOS)
         if (self.connectedToNetwork()){
             datatask.resume()
         }
+        #else
+        datatask.resume()
+        #endif
     }
     
     func updateStudent(studentId: Int, withData params: String){
@@ -70,11 +75,12 @@ class NetworkRequestor {
                 self.delegate?.rowUpdateSuccessful!(false)
             })
         }
-        datatask.resume()
+        if (self.connectedToNetwork()){
+            datatask.resume()
+        }
     }
     
     func deleteStudent(studentId: Int){
-        print("Delete the student!")
         let baseURL = "http://csmadison.dhcp.bsu.edu/~vjtanksale/cs320/deletestudents.php"
         let param = "StudentId=\(studentId)"
         let url = NSURL(string: baseURL)
@@ -90,17 +96,23 @@ class NetworkRequestor {
                         self.delegate?.rowDeletionSuccessful!(true)
                     })
                 }
+            } else {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.delegate?.rowDeletionSuccessful!(false)
+                })
             }
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                self.delegate?.rowDeletionSuccessful!(false)
-            })
         }
+        #if os(iOS)
+        if (self.connectedToNetwork()){
+            datatask.resume()
+        }
+        #else
         datatask.resume()
+        #endif
     }
     
     func createStudent(params: String){
         let cleanedParams = params.stringByReplacingOccurrencesOfString(" ", withString: "%20")
-        print(cleanedParams)
         let baseURL = "http://csmadison.dhcp.bsu.edu/~vjtanksale/cs320/insertstudents.php"
         let url = NSURL(string: baseURL)
         let session = NSURLSession.sharedSession()
@@ -120,7 +132,9 @@ class NetworkRequestor {
                 self.delegate?.rowInsertSuccessful!(false)
             })
         }
-        datatask.resume()
+        if (self.connectedToNetwork()){
+            datatask.resume()
+        }
     }
     
     func parseJSON(data: NSData?) -> NSArray{
@@ -130,9 +144,12 @@ class NetworkRequestor {
         } catch {
             print("Error parsing JSON")
         }
+        watchManager.saveJSON(parsedData)
+
         return parsedData
     }
     
+    #if os(iOS)
     private func connectedToNetwork() -> Bool {
         var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
         zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
@@ -157,4 +174,20 @@ class NetworkRequestor {
         
         return status
     }
+    
+    #else
+    
+    private func connectedToNetwork() -> Bool{
+        let url = NSURL(string: "https://www.google.com")
+        do{
+            _ = try NSData(contentsOfURL: url!, options: .DataReadingUncached)
+        } catch {
+            self.delegate?.noNetworkConnection()
+            return false
+        }
+        return true
+    }
+    
+    #endif
+    
 }

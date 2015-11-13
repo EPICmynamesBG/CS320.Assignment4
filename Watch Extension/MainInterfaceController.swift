@@ -8,72 +8,70 @@
 
 import WatchKit
 import Foundation
-import WatchConnectivity
 
 
-class MainInterfaceController: WKInterfaceController, WCSessionDelegate {
+class MainInterfaceController: WKInterfaceController, NetworkRequestorDelegate {
 
+    @IBOutlet var loadingLabel: WKInterfaceLabel!
     @IBOutlet var table: WKInterfaceTable!
-    var data: NSArray!
-    var session: WCSession
+    @IBOutlet var noNetworkLabel: WKInterfaceLabel!
     
-    override init(){
-        self.session = WCSession.defaultSession()
-        super.init()
-        self.session.delegate = self
-        session.activateSession()
-    }
+    @IBOutlet var retryButton: WKInterfaceButton!
+    
+    var data: NSArray!
+    var requestor: NetworkRequestor = NetworkRequestor()
+    var makingRequest: Bool = false
     
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        
-        
+        self.setTitle("Students")
         data = NSArray()
-        if (!data.isEqual(nil) || data.count
-             > 0){
-            self.updateTable()
-        } else {
-            print("Data is empty")
-        }
+        self.requestor.delegate = self
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTable", name: "DataDidUpdate", object: nil)
         // Configure interface objects here.
-    }
-    
-    func session(session: WCSession, didReceiveMessageData messageData: NSData, replyHandler: (NSData) -> Void) {
-        self.data = self.parseJSON(messageData)
-        self.updateTable()
-    }
-    
-    func parseJSON(data: NSData?) -> NSArray{
-        var parsedData:NSArray!
-        do {
-            parsedData = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSArray
-        } catch {
-            print("Error parsing JSON")
-        }
-        return parsedData
     }
     
     func updateTable(){
         table.setNumberOfRows(self.data.count, withRowType: "WatchListRowController")
-        print(table.numberOfRows)
         for (var i = 0; i < table.numberOfRows; i++){
             let dict = self.data[i] as! NSDictionary
-            let cell = table.rowControllerAtIndex(i) as! WatchListRowController
+            let row = table.rowControllerAtIndex(i) as! WatchListRowController
             let fName = dict["FirstName"] as! String
             let lName = dict["LastName"] as! String
             let str = "\(fName) \(lName)"
-            cell.studentLabel.setText(str)
+            row.studentLabel.setText(str)
+            
         }
     }
 
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        self.makingRequest = true
+        self.requestor.getAllStudents()
+        if (makingRequest){
+            self.loadingLabel.setHidden(false)
+        }
+        
+    }
+    @IBAction func reloadTap() {
+        self.makingRequest = true
+        table.setNumberOfRows(0, withRowType: "WatchListRowController")
+        self.data = []
+        self.requestor.getAllStudents()
+        if (makingRequest){
+            self.loadingLabel.setHidden(false)
+        }
     }
 
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
+    @IBAction func retryTap() {
+        self.makingRequest = true
+        if (makingRequest){
+            self.loadingLabel.setHidden(false)
+            self.noNetworkLabel.setHidden(true)
+            self.retryButton.setHidden(true)
+        }
+        self.requestor.getAllStudents()
     }
     
     override func contextForSegueWithIdentifier(segueIdentifier: String, inTable table: WKInterfaceTable, rowIndex: Int) -> AnyObject? {
@@ -83,6 +81,24 @@ class MainInterfaceController: WKInterfaceController, WCSessionDelegate {
             return dict
         }
         return nil
+    }
+    
+    func noNetworkConnection() {
+        print("No connection")
+        self.makingRequest = false
+        self.noNetworkLabel.setHidden(false)
+        self.retryButton.setHidden(false)
+    }
+    
+    func retrievedAllStudents(array: NSArray) {
+        self.data = array
+        self.makingRequest = false
+        self.updateTable()
+        if (!makingRequest){
+            self.loadingLabel.setHidden(true)
+            self.noNetworkLabel.setHidden(true)
+            self.retryButton.setHidden(true)
+        }
     }
 
 }

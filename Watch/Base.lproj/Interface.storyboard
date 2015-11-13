@@ -8,11 +8,11 @@
         <!--Main Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Watch_Extension">
+                <controller hidesWhenLoading="NO" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Watch_Extension">
                     <items>
-                        <table alignment="left" id="lmJ-5I-BHZ">
+                        <table alignment="center" id="lmJ-5I-BHZ">
                             <items>
-                                <tableRow identifier="WatchKitRowController" id="Ius-60-Hi3" customClass="WatchListRowController" customModule="Assignment4_2">
+                                <tableRow identifier="WatchListRowController" id="Ius-60-Hi3" customClass="WatchListRowController" customModule="Watch_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="20N-DX-Swd">
                                         <items>
                                             <label alignment="center" verticalAlignment="center" text="Student" id="RDi-eB-UGg"/>
@@ -27,8 +27,34 @@
                                 </tableRow>
                             </items>
                         </table>
+                        <label alignment="center" hidden="YES" text="Loading..." textAlignment="center" id="35M-Cg-Wuk">
+                            <color key="textColor" red="0.015686274510000001" green="0.87058823529999996" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                        </label>
+                        <label alignment="center" hidden="YES" text="No Network Connection" textAlignment="center" numberOfLines="2" id="QRy-md-RFw">
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="font" type="system" pointSize="13"/>
+                        </label>
+                        <button width="1" alignment="left" hidden="YES" title="Retry?" id="COp-j0-cVg">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="retryTap" destination="AgC-eL-Hgc" id="amp-ZM-aDb"/>
+                            </connections>
+                        </button>
                     </items>
+                    <menu key="menu" id="cYt-eP-uhw">
+                        <items>
+                            <menuItem title="Reload" icon="repeat" id="02j-jE-Tcn">
+                                <connections>
+                                    <action selector="reloadTap" destination="AgC-eL-Hgc" id="b22-zx-jpS"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
+                        <outlet property="loadingLabel" destination="35M-Cg-Wuk" id="2ni-1m-cie"/>
+                        <outlet property="noNetworkLabel" destination="QRy-md-RFw" id="KAs-2j-VhA"/>
+                        <outlet property="retryButton" destination="COp-j0-cVg" id="Jqq-5Q-a2O"/>
                         <outlet property="table" destination="lmJ-5I-BHZ" id="f41-fl-ALj"/>
                     </connections>
                 </controller>
@@ -38,7 +64,7 @@
         <!--Student Interface Controller-->
         <scene sceneID="g3h-Op-f64">
             <objects>
-                <controller id="59D-PY-N2w" customClass="StudentInterfaceController" customModule="Watch_Extension">
+                <controller hidesWhenLoading="NO" id="59D-PY-N2w" customClass="StudentInterfaceController" customModule="Watch_Extension">
                     <items>
                         <label alignment="center" text="FirstName" id="f4s-vo-yht"/>
                         <label alignment="center" text="LastName" textAlignment="left" id="v9j-53-seS"/>
@@ -49,7 +75,7 @@
                         <button width="1" alignment="left" title="Delete Student" id="bRq-bP-PwT">
                             <fontDescription key="font" type="system" pointSize="14"/>
                             <connections>
-                                <segue destination="m2j-G5-4po" kind="push" id="q9O-lT-dan"/>
+                                <segue destination="m2j-G5-4po" kind="push" identifier="confirmationSegue" id="q9O-lT-dan"/>
                             </connections>
                         </button>
                     </items>
@@ -67,7 +93,7 @@
         <!--Confirmation Interface Controller-->
         <scene sceneID="USh-EB-v6j">
             <objects>
-                <controller id="m2j-G5-4po" customClass="ConfirmationInterfaceController" customModule="Watch_Extension">
+                <controller hidesWhenLoading="NO" id="m2j-G5-4po" customClass="ConfirmationInterfaceController" customModule="Watch_Extension">
                     <items>
                         <label alignment="center" text="Confirm: Delete the student?" numberOfLines="2" id="OVy-ZC-chi"/>
                         <button width="1" alignment="left" title="Cancel" id="hzf-N7-Zb1">
@@ -85,7 +111,22 @@
                                 <action selector="deleteTap" destination="m2j-G5-4po" id="drS-8a-a8Q"/>
                             </connections>
                         </button>
+                        <label alignment="center" text="Deleted" numberOfLines="0" minimumScaleFactor="0.5" id="GPR-uQ-JaY">
+                            <color key="textColor" red="0.015686274510000001" green="0.87058823529999996" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                        </label>
+                        <button width="1" alignment="left" title="OK" id="4jS-Fz-3RY">
+                            <connections>
+                                <action selector="okTap" destination="m2j-G5-4po" id="NjD-7R-sXD"/>
+                            </connections>
+                        </button>
                     </items>
+                    <connections>
+                        <outlet property="cancelButton" destination="hzf-N7-Zb1" id="JiN-yU-hJC"/>
+                        <outlet property="confirmLabel" destination="OVy-ZC-chi" id="2C7-HT-iHY"/>
+                        <outlet property="deleteButton" destination="EEa-KZ-S03" id="7kS-1p-Akh"/>
+                        <outlet property="deletedLabel" destination="GPR-uQ-JaY" id="dgU-jh-fMw"/>
+                        <outlet property="okButton" destination="4jS-Fz-3RY" id="pwF-bh-afV"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="625" y="341"/>
