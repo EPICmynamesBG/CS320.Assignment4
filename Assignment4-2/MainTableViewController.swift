@@ -116,7 +116,7 @@ class MainTableViewController: UITableViewController, NetworkRequestorDelegate {
     
     func noNetworkConnection() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-        let alert = UIAlertController(title: "No Internet Connection", message: "No Internet Connection Found", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "No Internet Connection", message: "No connection to BSU found", preferredStyle: UIAlertControllerStyle.Alert)
         let cancel = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel) { (action:UIAlertAction) -> Void in
             //do nothing
         }

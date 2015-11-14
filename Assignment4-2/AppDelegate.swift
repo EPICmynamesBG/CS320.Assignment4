@@ -17,12 +17,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     let requestor = NetworkRequestor()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert, .Badge], categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
         if (WCSession.isSupported()){
             let session = WCSession.defaultSession()
             session.delegate = self
             session.activateSession()
         }
         UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(NSTimeInterval(backgroundRefreshTime))
+        let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey]
+        if ((notification) != nil){
+            application.applicationIconBadgeNumber = 0
+        }
         return true
     }
 
@@ -49,19 +55,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     }
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        print("Fetching...")
         let fetchedArray = self.requestor.getAllStudentsInFetch()
         let savedArray = SaveDataManager.getJSON()
-        print(fetchedArray.debugDescription)
-        print(savedArray.debugDescription)
-        let notification = Notification()
-        notification.fireNotification()
         if (fetchedArray != nil){
             if (savedArray != nil){
-                if (fetchedArray! == savedArray!){
+                if (self.arraysAreEqual(fetchedArray!, array2: savedArray!)){
                     print("Success")
                     let notification = Notification()
-                    notification.fireNotification()
+                    //notification.setTime()
+                    //let notification = self.createNotification()
+                    UIApplication.sharedApplication().scheduleLocalNotification(notification.getNotification())
                     completionHandler(.NewData)
                 } else {
                     print("Data is same")
@@ -75,6 +78,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         } else {
             print("Failed")
             completionHandler(.Failed)
+        }
+    }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        print("We have a notification!")
+        NSNotificationCenter.defaultCenter().postNotificationName(notification.alertTitle!, object: self)
+        
+    }
+    
+    func arraysAreEqual(array1: NSArray, array2: NSArray) ->Bool{
+        if (array1.count == array2.count){
+            return true
+        } else{
+            return false
         }
     }
 

@@ -28,24 +28,38 @@ class NetworkRequestor: NSObject, WCSessionDelegate {
     
     var delegate:NetworkRequestorDelegate?
     var session: WCSession?
+    var configuration: NSURLSessionConfiguration!
     
     override init(){
-        
+        self.configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        self.configuration.timeoutIntervalForRequest = NSTimeInterval(15)
     }
     
     func getAllStudents(){
         let baseURL = "http://csmadison.dhcp.bsu.edu/~vjtanksale/cs320/selectstudents.php"
         let url = NSURL(string: baseURL)
-        let session = NSURLSession.sharedSession()
+        let session = NSURLSession(configuration: self.configuration)
         let datatask = session.dataTaskWithURL(url!) { (data:NSData?, response:NSURLResponse?, error: NSError?) -> Void in
-            if let HTTPResponse = response as? NSHTTPURLResponse {
-                let statusCode = HTTPResponse.statusCode
-                if (statusCode == 200 && error == nil){
-                    let array = self.parseJSON(data)
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        self.delegate?.retrievedAllStudents!(array)
-                    })
+            if (error == nil){
+                if let HTTPResponse = response as? NSHTTPURLResponse {
+                    let statusCode = HTTPResponse.statusCode
+                    if (statusCode == 200 && error == nil){
+                        let array = self.parseJSON(data)
+                        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                            self.delegate?.retrievedAllStudents!(array)
+                        })
+                    }
                 }
+            } else {
+                #if os(iOS)
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.delegate?.noNetworkConnection()
+                })
+                #else
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.delegate?.noPhoneConnected()
+                })
+                #endif
             }
         }
         #if os(iOS)
@@ -75,22 +89,35 @@ class NetworkRequestor: NSObject, WCSessionDelegate {
         var cleanedParams = "StudentId=\(studentId)&\(params)"
         cleanedParams = cleanedParams.stringByReplacingOccurrencesOfString(" ", withString: "%20")
         let url = NSURL(string: baseURL)
-        let session = NSURLSession.sharedSession()
+        let session =  NSURLSession(configuration: self.configuration)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         request.HTTPBody = cleanedParams.dataUsingEncoding(NSUTF8StringEncoding)
         let datatask = session.dataTaskWithRequest(request) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-            if let HTTPResponse = response as? NSHTTPURLResponse {
-                let statusCode = HTTPResponse.statusCode
-                if (statusCode == 200 && error == nil){
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        self.delegate?.rowUpdateSuccessful!(true)
-                    })
+            if (error == nil){
+                if let HTTPResponse = response as? NSHTTPURLResponse {
+                    let statusCode = HTTPResponse.statusCode
+                    if (statusCode == 200 && error == nil){
+                        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                            self.delegate?.rowUpdateSuccessful!(true)
+                        })
+                    }
                 }
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.delegate?.rowUpdateSuccessful!(false)
+                })
+            } else {
+                #if os(iOS)
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.delegate?.noNetworkConnection()
+                    })
+                #else
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.delegate?.noPhoneConnected()
+                    })
+                #endif
             }
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                self.delegate?.rowUpdateSuccessful!(false)
-            })
+            
         }
         #if os(iOS)
             if (self.connectedToNetwork()){
@@ -107,22 +134,34 @@ class NetworkRequestor: NSObject, WCSessionDelegate {
         let baseURL = "http://csmadison.dhcp.bsu.edu/~vjtanksale/cs320/deletestudents.php"
         let param = "StudentId=\(studentId)"
         let url = NSURL(string: baseURL)
-        let session = NSURLSession.sharedSession()
+        let session =  NSURLSession(configuration: self.configuration)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         request.HTTPBody = param.dataUsingEncoding(NSUTF8StringEncoding)
         let datatask = session.dataTaskWithRequest(request) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-            if let HTTPResponse = response as? NSHTTPURLResponse {
-                let statusCode = HTTPResponse.statusCode
-                if (statusCode == 200 && error == nil){
+            if (error == nil){
+                if let HTTPResponse = response as? NSHTTPURLResponse {
+                    let statusCode = HTTPResponse.statusCode
+                    if (statusCode == 200 && error == nil){
+                        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                            self.delegate?.rowDeletionSuccessful!(true)
+                        })
+                    }
+                } else {
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        self.delegate?.rowDeletionSuccessful!(true)
+                        self.delegate?.rowDeletionSuccessful!(false)
                     })
                 }
             } else {
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    self.delegate?.rowDeletionSuccessful!(false)
-                })
+                #if os(iOS)
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.delegate?.noNetworkConnection()
+                    })
+                #else
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.delegate?.noPhoneConnected()
+                    })
+                #endif
             }
         }
         #if os(iOS)
@@ -140,22 +179,35 @@ class NetworkRequestor: NSObject, WCSessionDelegate {
         let cleanedParams = params.stringByReplacingOccurrencesOfString(" ", withString: "%20")
         let baseURL = "http://csmadison.dhcp.bsu.edu/~vjtanksale/cs320/insertstudents.php"
         let url = NSURL(string: baseURL)
-        let session = NSURLSession.sharedSession()
+        let session =  NSURLSession(configuration: self.configuration)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         request.HTTPBody = cleanedParams.dataUsingEncoding(NSUTF8StringEncoding)
         let datatask = session.dataTaskWithRequest(request) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-            if let HTTPResponse = response as? NSHTTPURLResponse {
-                let statusCode = HTTPResponse.statusCode
-                if (statusCode == 200 && error == nil){
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        self.delegate?.rowInsertSuccessful!(true)
-                    })
+            if (error == nil){
+                if let HTTPResponse = response as? NSHTTPURLResponse {
+                    let statusCode = HTTPResponse.statusCode
+                    if (statusCode == 200 && error == nil){
+                        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                            self.delegate?.rowInsertSuccessful!(true)
+                        })
+                    }
                 }
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.delegate?.rowInsertSuccessful!(false)
+                })
+            } else {
+                #if os(iOS)
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.delegate?.noNetworkConnection()
+                    })
+                #else
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.delegate?.noPhoneConnected()
+                    })
+                #endif
             }
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                self.delegate?.rowInsertSuccessful!(false)
-            })
+            
         }
         #if os(iOS)
             if (self.connectedToNetwork()){
