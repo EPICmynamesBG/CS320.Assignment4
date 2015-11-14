@@ -31,7 +31,6 @@ class MainTableViewController: UITableViewController, NetworkRequestorDelegate {
         self.requestor.getAllStudents()
     }
     
-    
     // ------- Table View -------
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

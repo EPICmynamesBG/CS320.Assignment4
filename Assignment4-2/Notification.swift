@@ -11,22 +11,21 @@ import UIKit
 
 class Notification: NSObject {
     
-    var notification: UILocalNotification!
-    let title: String = "Student List Changed"
-    let body: String = "See what's changed!"
+    let title: String = "Student Data Changed"
+    let body: String = "Student data has changed!"
     
     override init() {
-        self.notification = UILocalNotification()
-        self.notification.timeZone = NSTimeZone.defaultTimeZone()
-        self.notification.alertBody = body
-        self.notification.alertTitle = title
-        self.notification.soundName = UILocalNotificationDefaultSoundName
-        self.notification.applicationIconBadgeNumber = 1
+        let notification = UILocalNotification()
+        notification.timeZone = NSTimeZone.defaultTimeZone()
+        notification.alertBody = body
+        notification.alertTitle = title
+        notification.soundName = UILocalNotificationDefaultSoundName
+        notification.applicationIconBadgeNumber = 1
         let time = NSDate.init(timeIntervalSinceNow: NSTimeInterval(5))
-        self.notification.fireDate = time
+        notification.fireDate = time
+        #if os(iOS)
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        #endif
     }
     
-    func getNotification() -> UILocalNotification! {
-        return self.notification
-    }
 }

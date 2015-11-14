@@ -61,6 +61,22 @@
             </objects>
             <point key="canvasLocation" x="235" y="341"/>
         </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="M9Z-V7-Vtl">
+            <objects>
+                <notificationController id="GUg-Kc-cSc">
+                    <items>
+                        <label alignment="left" text="Alert Label" numberOfLines="0" id="17L-iF-GB3"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" id="LJZ-8Z-bvg"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="17L-iF-GB3" id="5Nc-dh-CsJ"/>
+                        <segue destination="9JE-rR-kmQ" kind="relationship" relationship="dynamicNotificationInterface" id="OuK-67-cXC"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="235" y="583"/>
+        </scene>
         <!--Student Interface Controller-->
         <scene sceneID="g3h-Op-f64">
             <objects>
@@ -130,6 +146,24 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="625" y="341"/>
+        </scene>
+        <!--Alert Interface-->
+        <scene sceneID="pMb-jX-CYH">
+            <objects>
+                <controller id="9JE-rR-kmQ" customClass="AlertInterface" customModule="Watch_Extension">
+                    <items>
+                        <label alignment="left" text="Title" minimumScaleFactor="0.40000000000000002" id="5oB-gQ-HvT">
+                            <fontDescription key="font" type="system" weight="semibold" pointSize="27"/>
+                        </label>
+                        <label alignment="left" text="Body" numberOfLines="0" minimumScaleFactor="0.40000000000000002" id="wzX-pm-73Q"/>
+                    </items>
+                    <connections>
+                        <outlet property="bodyLabel" destination="wzX-pm-73Q" id="0MN-q9-jN9"/>
+                        <outlet property="titleLabel" destination="5oB-gQ-HvT" id="oIg-Wo-9FG"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="440" y="583"/>
         </scene>
     </scenes>
 </document>

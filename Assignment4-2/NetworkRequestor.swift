@@ -45,6 +45,9 @@ class NetworkRequestor: NSObject, WCSessionDelegate {
                     let statusCode = HTTPResponse.statusCode
                     if (statusCode == 200 && error == nil){
                         let array = self.parseJSON(data)
+                        #if os(iOS)
+                        SaveDataManager.saveJSON(array)
+                        #endif
                         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                             self.delegate?.retrievedAllStudents!(array)
                         })
@@ -260,7 +263,6 @@ class NetworkRequestor: NSObject, WCSessionDelegate {
             let session = WCSession.defaultSession()
             session.delegate = self
             session.activateSession()
-            print(session.reachable)
             if session.reachable {
                 return true
             } else {

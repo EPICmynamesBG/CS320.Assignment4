@@ -28,6 +28,8 @@
 		BCDE9E7B1BF5A01D000C6541 /* SaveDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDE9E7A1BF5A01D000C6541 /* SaveDataManager.swift */; };
 		BCDE9E7D1BF5A5D6000C6541 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDE9E7C1BF5A5D6000C6541 /* Notification.swift */; };
 		BCDE9E7E1BF5A5D6000C6541 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDE9E7C1BF5A5D6000C6541 /* Notification.swift */; };
+		BCEC38301BF6E36200F6447F /* NSArrayCompare.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEC382F1BF6E36200F6447F /* NSArrayCompare.swift */; };
+		BCEC38321BF6E7F800F6447F /* AlertInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEC38311BF6E7F800F6447F /* AlertInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +98,8 @@
 		BCAC5A741BF5341E0084ED0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCDE9E7A1BF5A01D000C6541 /* SaveDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveDataManager.swift; sourceTree = "<group>"; };
 		BCDE9E7C1BF5A5D6000C6541 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		BCEC382F1BF6E36200F6447F /* NSArrayCompare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSArrayCompare.swift; sourceTree = "<group>"; };
+		BCEC38311BF6E7F800F6447F /* AlertInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +157,7 @@
 				BCDE9E7A1BF5A01D000C6541 /* SaveDataManager.swift */,
 				BCDE9E7C1BF5A5D6000C6541 /* Notification.swift */,
 				BCA55B901BF2D648001F103D /* NetworkRequestor.swift */,
+				BCEC382F1BF6E36200F6447F /* NSArrayCompare.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 				BC2FF62C1BF3E6DF00C8B2D0 /* MainInterfaceController.swift */,
 				BC2FF6461BF3E9FE00C8B2D0 /* StudentInterfaceController.swift */,
 				BC2FF6481BF3EA9A00C8B2D0 /* ConfirmationInterfaceController.swift */,
+				BCEC38311BF6E7F800F6447F /* AlertInterface.swift */,
 			);
 			name = Interfaces;
 			sourceTree = "<group>";
@@ -338,6 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCEC38321BF6E7F800F6447F /* AlertInterface.swift in Sources */,
 				BCDE9E791BF58F42000C6541 /* NetworkRequestor.swift in Sources */,
 				BC2FF62F1BF3E6DF00C8B2D0 /* ExtensionDelegate.swift in Sources */,
 				BC2FF62D1BF3E6DF00C8B2D0 /* MainInterfaceController.swift in Sources */,
@@ -352,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCEC38301BF6E36200F6447F /* NSArrayCompare.swift in Sources */,
 				BCDE9E7B1BF5A01D000C6541 /* SaveDataManager.swift in Sources */,
 				BCA55B8F1BF2D4D5001F103D /* DetailViewController.swift in Sources */,
 				BCDE9E7D1BF5A5D6000C6541 /* Notification.swift in Sources */,
