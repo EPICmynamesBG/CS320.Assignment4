@@ -28,4 +28,18 @@ class Notification: NSObject {
         #endif
     }
     
+    init(text: String) {
+        let notification = UILocalNotification()
+        notification.timeZone = NSTimeZone.defaultTimeZone()
+        notification.alertBody = text
+        notification.alertTitle = self.title
+        notification.soundName = UILocalNotificationDefaultSoundName
+        notification.applicationIconBadgeNumber = 1
+        let time = NSDate.init(timeIntervalSinceNow: NSTimeInterval(5))
+        notification.fireDate = time
+        #if os(iOS)
+            UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        #endif
+    }
+    
 }

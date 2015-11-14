@@ -130,13 +130,14 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
     
     private func allFieldsAreFilled() -> Bool{
         var textFieldsArray = Array<String>()
-        textFieldsArray.append(String(self.firstName.text))
-        textFieldsArray.append(String(self.lastName.text))
-        textFieldsArray.append(String(self.majorTextfield.text))
-        textFieldsArray.append(String(self.gpaTextfield.text))
-        textFieldsArray.append(String(self.yearTextfield.text))
+        textFieldsArray.append(String(self.firstName.text!))
+        textFieldsArray.append(String(self.lastName.text!))
+        textFieldsArray.append(String(self.majorTextfield.text!))
+        textFieldsArray.append(String(self.gpaTextfield.text!))
+        textFieldsArray.append(String(self.yearTextfield.text!))
         for (var i = 0; i < textFieldsArray.count; i++) {
-            let str: String = textFieldsArray[i]
+            let str: String! = textFieldsArray[i]
+            print(str)
             if (str.isEmpty || str == ""){
                 return false
             }
@@ -163,16 +164,24 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
     
     @IBAction func submitChangesTap(sender: UIButton) {
         self.resignAllResponders()
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         if (self.createStudentMode == true){
             //create new student
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-            if (self.allFieldsAreFilled() == true && self.gpaIsValid() == true){
-                let params: String = "FirstName=\(String(UTF8String: self.firstName.text!)!)&LastName=\(String(UTF8String: self.lastName.text!)!)&Major=\(String(UTF8String: self.majorTextfield.text!)!)&Year=\(String(UTF8String: self.yearTextfield.text!)!)&GPA=\(String(UTF8String: self.gpaTextfield.text!)!)"
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-                self.requestor.createStudent(params)
+            if (self.allFieldsAreFilled() == true){
+                if (self.gpaIsValid() == true){
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+                    let params: String = "FirstName=\(String(UTF8String: self.firstName.text!)!)&LastName=\(String(UTF8String: self.lastName.text!)!)&Major=\(String(UTF8String: self.majorTextfield.text!)!)&Year=\(String(UTF8String: self.yearTextfield.text!)!)&GPA=\(String(UTF8String: self.gpaTextfield.text!)!)"
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+                    self.requestor.createStudent(params)
+                } else {
+                    let newAlert = UIAlertController(title: "Input Error", message: "Invalid GPA", preferredStyle: .Alert)
+                    let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action:UIAlertAction) -> Void in
+                        //do nothing
+                    }
+                    newAlert.addAction(cancel)
+                    self.presentViewController(newAlert, animated: true, completion: nil)
+                }
             } else {
-                let newAlert = UIAlertController(title: "Input Error", message: "Invalid inputs. Check that at least one field has changed and all are filled.", preferredStyle: .Alert)
+                let newAlert = UIAlertController(title: "Input Error", message: "Not all fields are filled", preferredStyle: .Alert)
                 let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action:UIAlertAction) -> Void in
                     //do nothing
                 }
@@ -181,6 +190,7 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
             }
         } else {
             //modify current student
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             let id = self.data["StudentId"] as? String
             let studentId:Int = Int(id!)!
             let alert = UIAlertController(title: "Confirm Update", message: "Are you sure you want to commit these changes?", preferredStyle: UIAlertControllerStyle.Alert)

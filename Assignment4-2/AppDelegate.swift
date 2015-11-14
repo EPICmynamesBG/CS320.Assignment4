@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     }
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        _ = Notification.init(text: "Making background fetch...")
         let fetchedArray = self.requestor.getAllStudentsInFetch()
         let savedArray = SaveDataManager.getJSON()
         if (fetchedArray != nil){
