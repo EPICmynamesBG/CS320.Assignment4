@@ -34,6 +34,7 @@ class MainInterfaceController: WKInterfaceController, NetworkRequestorDelegate {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        self.data = nil
         self.makingRequest = true
         self.requestor.getAllStudents()
         if (makingRequest){
@@ -90,6 +91,7 @@ class MainInterfaceController: WKInterfaceController, NetworkRequestorDelegate {
     
     func noPhoneConnected() {
         print("No connection")
+        self.data = nil
         self.makingRequest = false
         self.noNetworkLabel.setHidden(false)
         self.retryButton.setHidden(false)

@@ -52,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        application.applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -84,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        //print("We have a notification!")
+        print("We have a notification!")
         //NSNotificationCenter.defaultCenter().postNotificationName(notification.alertTitle!, object: self)
         
     }
