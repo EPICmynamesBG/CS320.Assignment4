@@ -60,34 +60,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     }
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        _ = Notification.init(text: "Making background fetch...")
         let fetchedArray = self.requestor.getAllStudentsInFetch()
         let savedArray = SaveDataManager.getJSON()
         if (fetchedArray != nil){
             if (savedArray != nil){
                 if (!NSArrayCompare.arraysAreEqual(fetchedArray!, array2: savedArray!)){
-                    print("Notification created")
+                    //Notification created
                     _ = Notification.init()
                     completionHandler(.NewData)
                 } else {
-                    print("Data is same")
+                    //data is same
                     completionHandler(.NoData)
                 }
             } else {
-                print("Saved data was nil")
+                //saved data was nil
                 completionHandler(.NoData)
             }
             SaveDataManager.saveJSON(fetchedArray!)
         } else {
-            print("Fetch failed")
+            //fetch failed
             completionHandler(.Failed)
         }
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        print("We have a notification!")
-        //NSNotificationCenter.defaultCenter().postNotificationName(notification.alertTitle!, object: self)
-        
+        //response to local notification. Nothing needs done though
     }
 }
 

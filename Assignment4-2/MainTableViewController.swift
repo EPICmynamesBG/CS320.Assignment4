@@ -71,8 +71,7 @@ class MainTableViewController: UITableViewController, NetworkRequestorDelegate {
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete){
-            print("Handling the delete here!")
-            
+            //do nothing because delete request already made
         }
     }
     
@@ -89,16 +88,13 @@ class MainTableViewController: UITableViewController, NetworkRequestorDelegate {
             let cell = self.tableView.cellForRowAtIndexPath(indexPath2)
             self.requestor.deleteStudent(cell!.tag)
             self.requestor.getAllStudents()
-            print("Done deleting")
         }
         return [deleteAction]
     }
     
     override func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-        print("Performing an action")
         let cell = self.tableView.cellForRowAtIndexPath(indexPath)
         let text:String = (cell?.textLabel?.text!)!
-        print(text)
         self.pasteBoard = UIPasteboard(name: text, create: true)
         self.pasteBoard.string = text
     }

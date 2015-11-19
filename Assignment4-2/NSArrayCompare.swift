@@ -22,7 +22,6 @@ class NSArrayCompare {
                     let value1 = dict1.objectForKey(keys[j]) as! String
                     let value2 = dict2.objectForKey(keys[j]) as! String
                     if (value1 == value2) {
-                        //print("Values for key \(keys[j]) both equal \(value1)")
                         sameCount2++
                     }
                 }

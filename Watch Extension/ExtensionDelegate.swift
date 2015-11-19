@@ -26,6 +26,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     
     func handleActionWithIdentifier(identifier: String?, forLocalNotification localNotification: UILocalNotification) {
         WKInterfaceDevice().playHaptic(WKHapticType.Notification)
-        print("Notification recieved")
+        //action when local notificationn recieved. Nothing needs done though
     }
 }

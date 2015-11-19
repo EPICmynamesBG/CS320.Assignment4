@@ -23,6 +23,7 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
     @IBOutlet weak var yearTextfield: UITextField!
     @IBOutlet weak var yearPickerView: UIPickerView!
     
+    @IBOutlet weak var yearPickerButton: UIButton!
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
@@ -137,7 +138,6 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
         textFieldsArray.append(String(self.yearTextfield.text!))
         for (var i = 0; i < textFieldsArray.count; i++) {
             let str: String! = textFieldsArray[i]
-            print(str)
             if (str.isEmpty || str == ""){
                 return false
             }
@@ -156,6 +156,7 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
     
     // ------ Button Taps ----------
     @IBAction func yearTextButton(sender: UIButton) {
+        self.yearTextfield.text = "Freshman"
         self.yearPickerView.hidden = false
         self.pickerDoneButton.hidden = false
         self.yearPickerView.becomeFirstResponder()
@@ -190,7 +191,6 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
             }
         } else {
             //modify current student
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             let id = self.data["StudentId"] as? String
             let studentId:Int = Int(id!)!
             let alert = UIAlertController(title: "Confirm Update", message: "Are you sure you want to commit these changes?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -251,6 +251,17 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
     // ------- TextFields ---------
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if (textField == self.firstName){
+            self.lastName.becomeFirstResponder()
+        } else if (textField == self.lastName){
+            self.majorTextfield.becomeFirstResponder()
+        } else if (textField == self.majorTextfield){
+            self.gpaTextfield.becomeFirstResponder()
+        } else if (textField == self.gpaTextfield){
+            self.yearTextButton(self.yearPickerButton)
+        } else {
+            textField.resignFirstResponder()
+        }
         return true
     }
     
