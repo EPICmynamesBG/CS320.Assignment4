@@ -5,18 +5,24 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="9019"/>
     </dependencies>
     <scenes>
-        <!--Main Interface Controller-->
+        <!--Students-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller hidesWhenLoading="NO" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Watch_Extension">
+                <controller title="Students" hidesWhenLoading="NO" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Watch_Extension">
                     <items>
+                        <separator width="0.90000000000000002" alignment="center" id="K69-Nl-aYU">
+                            <color key="color" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </separator>
                         <table alignment="center" id="lmJ-5I-BHZ">
                             <items>
                                 <tableRow identifier="WatchListRowController" id="Ius-60-Hi3" customClass="WatchListRowController" customModule="Watch_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="20N-DX-Swd">
                                         <items>
-                                            <label alignment="center" verticalAlignment="center" text="Student" id="RDi-eB-UGg"/>
+                                            <label alignment="center" verticalAlignment="center" text="Student" minimumScaleFactor="0.5" id="RDi-eB-UGg">
+                                                <color key="textColor" red="1" green="0.59607843137254901" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </label>
                                         </items>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <segue destination="59D-PY-N2w" kind="push" identifier="showStudentSegue" id="xYa-UC-CdE"/>
                                         </connections>
@@ -26,17 +32,21 @@
                                     </connections>
                                 </tableRow>
                             </items>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </table>
                         <label alignment="center" hidden="YES" text="Loading..." textAlignment="center" id="35M-Cg-Wuk">
-                            <color key="textColor" red="0.015686274510000001" green="0.87058823529999996" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.29803921568627451" green="0.68627450980392157" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                         </label>
                         <label alignment="center" hidden="YES" text="No Network Connection" textAlignment="center" numberOfLines="2" id="QRy-md-RFw">
-                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.95686274509803915" green="0.2627450980392157" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="font" type="system" pointSize="13"/>
                         </label>
+                        <separator width="0.90000000000000002" alignment="center" verticalAlignment="bottom" id="Sa8-lO-JEt">
+                            <color key="color" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </separator>
                         <button width="1" alignment="left" hidden="YES" title="Retry?" id="COp-j0-cVg">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="retryTap" destination="AgC-eL-Hgc" id="amp-ZM-aDb"/>
                             </connections>
@@ -66,9 +76,12 @@
             <objects>
                 <notificationController id="GUg-Kc-cSc">
                     <items>
-                        <label alignment="left" text="Alert Label" numberOfLines="0" id="17L-iF-GB3"/>
+                        <label alignment="left" text="Alert Label" numberOfLines="0" id="17L-iF-GB3">
+                            <color key="textColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </label>
                     </items>
                     <notificationCategory key="notificationCategory" id="LJZ-8Z-bvg"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="notificationAlertLabel" destination="17L-iF-GB3" id="5Nc-dh-CsJ"/>
                         <segue destination="9JE-rR-kmQ" kind="relationship" relationship="dynamicNotificationInterface" id="OuK-67-cXC"/>
@@ -77,18 +90,22 @@
             </objects>
             <point key="canvasLocation" x="235" y="583"/>
         </scene>
-        <!--Student Interface Controller-->
+        <!--Student-->
         <scene sceneID="g3h-Op-f64">
             <objects>
-                <controller hidesWhenLoading="NO" id="59D-PY-N2w" customClass="StudentInterfaceController" customModule="Watch_Extension">
+                <controller title="Student" hidesWhenLoading="NO" id="59D-PY-N2w" customClass="StudentInterfaceController" customModule="Watch_Extension">
                     <items>
                         <label alignment="center" text="FirstName" id="f4s-vo-yht"/>
                         <label alignment="center" text="LastName" textAlignment="left" id="v9j-53-seS"/>
                         <label alignment="center" text="Student ID: 0" id="FWD-Zv-oh8"/>
                         <label alignment="center" text="Major" id="qyI-Zn-vNC"/>
                         <label alignment="center" text="Year" id="CV6-rB-VKt"/>
-                        <separator alignment="left" id="laQ-Ro-qWg"/>
+                        <separator alignment="left" id="laQ-Ro-qWg">
+                            <color key="color" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </separator>
                         <button width="1" alignment="left" title="Delete Student" id="bRq-bP-PwT">
+                            <color key="titleColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="font" type="system" pointSize="14"/>
                             <connections>
                                 <segue destination="m2j-G5-4po" kind="push" identifier="confirmationSegue" id="q9O-lT-dan"/>
@@ -106,31 +123,35 @@
             </objects>
             <point key="canvasLocation" x="440" y="348"/>
         </scene>
-        <!--Confirmation Interface Controller-->
+        <!--Delete-->
         <scene sceneID="USh-EB-v6j">
             <objects>
-                <controller hidesWhenLoading="NO" id="m2j-G5-4po" customClass="ConfirmationInterfaceController" customModule="Watch_Extension">
+                <controller title="Delete" hidesWhenLoading="NO" id="m2j-G5-4po" customClass="ConfirmationInterfaceController" customModule="Watch_Extension">
                     <items>
                         <label alignment="center" text="Confirm: Delete the student?" numberOfLines="2" id="OVy-ZC-chi"/>
                         <button width="1" alignment="left" title="Cancel" id="hzf-N7-Zb1">
+                            <color key="titleColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="cancelTap" destination="m2j-G5-4po" id="rtJ-ba-juU"/>
                             </connections>
                         </button>
                         <separator alignment="center" id="3bg-TA-HKQ">
-                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="color" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </separator>
                         <button width="1" alignment="left" title="Delete" id="EEa-KZ-S03">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.95686274509803915" green="0.2627450980392157" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="deleteTap" destination="m2j-G5-4po" id="drS-8a-a8Q"/>
                             </connections>
                         </button>
                         <label alignment="center" text="Deleted" numberOfLines="0" minimumScaleFactor="0.5" id="GPR-uQ-JaY">
-                            <color key="textColor" red="0.015686274510000001" green="0.87058823529999996" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.29803921568627451" green="0.68627450980392157" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                         </label>
                         <button width="1" alignment="left" title="OK" id="4jS-Fz-3RY">
+                            <color key="titleColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="okTap" destination="m2j-G5-4po" id="NjD-7R-sXD"/>
                             </connections>
@@ -153,10 +174,14 @@
                 <controller id="9JE-rR-kmQ" customClass="AlertInterface" customModule="Watch_Extension">
                     <items>
                         <label alignment="left" text="Title" minimumScaleFactor="0.40000000000000002" id="5oB-gQ-HvT">
+                            <color key="textColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="font" type="system" weight="semibold" pointSize="27"/>
                         </label>
-                        <label alignment="left" text="Body" numberOfLines="0" minimumScaleFactor="0.40000000000000002" id="wzX-pm-73Q"/>
+                        <label alignment="left" text="Body" numberOfLines="0" minimumScaleFactor="0.40000000000000002" id="wzX-pm-73Q">
+                            <color key="textColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </label>
                     </items>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="bodyLabel" destination="wzX-pm-73Q" id="0MN-q9-jN9"/>
                         <outlet property="titleLabel" destination="5oB-gQ-HvT" id="oIg-Wo-9FG"/>

@@ -32,6 +32,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert, .Badge, .Sound], categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(settings)
         
+        //Nav Bar
+        let color = UIColor.whiteColor()
+        let attributes = [NSForegroundColorAttributeName: color, NSFontAttributeName: UIFont(name: "Avenir Next Heavy", size: 18)!]
+        //customize the nav bar title
+        UINavigationBar.appearance().titleTextAttributes = attributes
+        //customize bar buttons
+        UIBarButtonItem.appearance().setTitleTextAttributes(attributes, forState: .Normal)
+        //change back button color
+        UINavigationBar.appearance().tintColor = color
         
         return true
     }

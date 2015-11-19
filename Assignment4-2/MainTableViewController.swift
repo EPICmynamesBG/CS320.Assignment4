@@ -18,6 +18,7 @@ class MainTableViewController: UITableViewController, NetworkRequestorDelegate {
         super.viewDidLoad()
         self.requestor = NetworkRequestor()
         self.requestor.delegate = self
+        self.refreshControl?.tintColor = UIColor.whiteColor()
     }
     
     override func viewDidAppear(animated: Bool) {

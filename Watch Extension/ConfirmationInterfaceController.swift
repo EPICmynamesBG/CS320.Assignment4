@@ -9,7 +9,6 @@
 import WatchKit
 import Foundation
 
-
 class ConfirmationInterfaceController: WKInterfaceController, NetworkRequestorDelegate {
     
     @IBOutlet var confirmLabel: WKInterfaceLabel!
@@ -26,7 +25,6 @@ class ConfirmationInterfaceController: WKInterfaceController, NetworkRequestorDe
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         self.id = context as! String
-        self.setTitle("Student")
         self.requestor.delegate = self
         
         self.deletedLabel.setHidden(true)
@@ -68,6 +66,7 @@ class ConfirmationInterfaceController: WKInterfaceController, NetworkRequestorDe
     
     func rowDeletionSuccessful(boolean: Bool) {
         self.deleteSuccess = boolean
+        PostDelete.deletionMade = boolean
         if (self.deleteSuccess == true){
             self.deletedLabel.setText("Deleted")
             let greenColor = UIColor(red: 4, green: 222, blue: 113, alpha: 1.0)

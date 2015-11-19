@@ -286,7 +286,7 @@ class DetailViewController: UIViewController, NetworkRequestorDelegate, UITextFi
         pickerLabel.textAlignment = .Center
         pickerLabel.backgroundColor = UIColor.clearColor()
         pickerLabel.font = UIFont(name: "Avenir Next Bold", size: 18)
-        pickerLabel.textColor = UIColor.blackColor()
+        pickerLabel.textColor = UIColor.whiteColor()
         pickerLabel.text = text
         return pickerLabel
     }

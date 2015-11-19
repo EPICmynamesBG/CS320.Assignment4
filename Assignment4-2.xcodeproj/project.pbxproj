@@ -16,6 +16,8 @@
 		BC2FF6471BF3E9FE00C8B2D0 /* StudentInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2FF6461BF3E9FE00C8B2D0 /* StudentInterfaceController.swift */; };
 		BC2FF6491BF3EA9A00C8B2D0 /* ConfirmationInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2FF6481BF3EA9A00C8B2D0 /* ConfirmationInterfaceController.swift */; };
 		BC2FF64C1BF3F5CF00C8B2D0 /* WatchListRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2FF6441BF3E94D00C8B2D0 /* WatchListRowController.swift */; };
+		BC30B2B91BFE23160057F625 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC30B2B81BFE23160057F625 /* RoundedButton.swift */; };
+		BC30B2BE1BFE49060057F625 /* PostDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC30B2BD1BFE49060057F625 /* PostDelete.swift */; };
 		BCA55B7D1BF2D36C001F103D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA55B7C1BF2D36C001F103D /* AppDelegate.swift */; };
 		BCA55B7F1BF2D36C001F103D /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA55B7E1BF2D36C001F103D /* MainTableViewController.swift */; };
 		BCA55B821BF2D36C001F103D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCA55B801BF2D36C001F103D /* Main.storyboard */; };
@@ -86,6 +88,8 @@
 		BC2FF6441BF3E94D00C8B2D0 /* WatchListRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchListRowController.swift; sourceTree = "<group>"; };
 		BC2FF6461BF3E9FE00C8B2D0 /* StudentInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInterfaceController.swift; sourceTree = "<group>"; };
 		BC2FF6481BF3EA9A00C8B2D0 /* ConfirmationInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationInterfaceController.swift; sourceTree = "<group>"; };
+		BC30B2B81BFE23160057F625 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		BC30B2BD1BFE49060057F625 /* PostDelete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDelete.swift; sourceTree = "<group>"; };
 		BCA55B791BF2D36C001F103D /* Assignment4-2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Assignment4-2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCA55B7C1BF2D36C001F103D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCA55B7E1BF2D36C001F103D /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				BC2FF62E1BF3E6DF00C8B2D0 /* ExtensionDelegate.swift */,
+				BC30B2BC1BFE48F70057F625 /* Model */,
 				BCAC5A761BF537EB0084ED0A /* Interfaces */,
 				BC2FF6381BF3E6DF00C8B2D0 /* Info.plist */,
 				BCAC5A741BF5341E0084ED0A /* Assets.xcassets */,
@@ -142,11 +147,20 @@
 			path = "Watch Extension";
 			sourceTree = "<group>";
 		};
+		BC30B2BC1BFE48F70057F625 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC30B2BD1BFE49060057F625 /* PostDelete.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		BC8E59C01BF50702003AA94A /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				BCA55B7E1BF2D36C001F103D /* MainTableViewController.swift */,
 				BCA55B8E1BF2D4D5001F103D /* DetailViewController.swift */,
+				BC30B2B81BFE23160057F625 /* RoundedButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -351,6 +365,7 @@
 				BCDE9E7E1BF5A5D6000C6541 /* Notification.swift in Sources */,
 				BC2FF6491BF3EA9A00C8B2D0 /* ConfirmationInterfaceController.swift in Sources */,
 				BC2FF6471BF3E9FE00C8B2D0 /* StudentInterfaceController.swift in Sources */,
+				BC30B2BE1BFE49060057F625 /* PostDelete.swift in Sources */,
 				BC2FF64C1BF3F5CF00C8B2D0 /* WatchListRowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +377,7 @@
 				BCEC38301BF6E36200F6447F /* NSArrayCompare.swift in Sources */,
 				BCDE9E7B1BF5A01D000C6541 /* SaveDataManager.swift in Sources */,
 				BCA55B8F1BF2D4D5001F103D /* DetailViewController.swift in Sources */,
+				BC30B2B91BFE23160057F625 /* RoundedButton.swift in Sources */,
 				BCDE9E7D1BF5A5D6000C6541 /* Notification.swift in Sources */,
 				BCA55B911BF2D648001F103D /* NetworkRequestor.swift in Sources */,
 				BCA55B7F1BF2D36C001F103D /* MainTableViewController.swift in Sources */,

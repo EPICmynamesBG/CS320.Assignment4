@@ -10,7 +10,6 @@ import WatchKit
 import WatchConnectivity
 import Foundation
 
-
 class MainInterfaceController: WKInterfaceController, NetworkRequestorDelegate {
 
     @IBOutlet var loadingLabel: WKInterfaceLabel!
@@ -25,7 +24,6 @@ class MainInterfaceController: WKInterfaceController, NetworkRequestorDelegate {
     
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        self.setTitle("Students")
         data = NSArray()
         self.requestor.delegate = self
         
@@ -35,19 +33,15 @@ class MainInterfaceController: WKInterfaceController, NetworkRequestorDelegate {
         if (makingRequest){
             self.loadingLabel.setHidden(false)
         }
-        // Configure interface objects here.
     }
 
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
-//        self.data = nil
-//        self.makingRequest = true
-//        self.requestor.getAllStudents()
-//        if (makingRequest){
-//            self.loadingLabel.setHidden(false)
-//        }
-        
+        if (PostDelete.deletionMade == true){
+            self.reloadTap()
+            PostDelete.deletionMade = false
+        }
     }
     
     func updateTable(){
